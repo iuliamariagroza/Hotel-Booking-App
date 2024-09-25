@@ -29,6 +29,6 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
-app.listen(7000, () => {
-  console.log("Server running on localhost: 7000");
+app.listen(3000, () => {
+  console.log("Server running on localhost: 3000");
 });
