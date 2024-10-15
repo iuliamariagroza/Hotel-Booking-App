@@ -35,4 +35,6 @@ test("should show hotel detail", async ({ page }) => {
   await page.getByRole("button", { name: "Search" }).click();
 
   await page.getByText("Dublin Getaways").click();
+  await expect(page).toHaveURL(/detail/);
+  await expect(page.getByRole("button", { name: "Book now" })).toBeVisible();
 });

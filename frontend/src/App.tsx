@@ -15,7 +15,7 @@ import Search from "./pages/Search";
 import Detail from "./pages/Detail";
 
 function App() {
-  const { isLoggenIn } = useAppContext();
+  const { isLoggedIn } = useAppContext();
   return (
     <Router>
       <Routes>
@@ -59,7 +59,7 @@ function App() {
             </Layout>
           }
         />
-        {isLoggenIn && (
+        {isLoggedIn && (
           <>
             <Route
               path="/add-hotel"
