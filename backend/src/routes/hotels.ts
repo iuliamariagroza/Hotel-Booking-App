@@ -3,17 +3,36 @@ import Hotel from "../models/hotel";
 import { HotelSearchResponse } from "../shared/types";
 
 const router = express.Router();
-// api/my-hotels/search
+
 router.get("/search", async (req: Request, res: Response) => {
   try {
+    const query = constructSearchQuery(req.query);
+
+    let sortOptions = {};
+    switch (req.query.sortOptions) {
+      case "starRating":
+        sortOptions = { starRating: -1 };
+        break;
+      case "pricePerNightAsc":
+        sortOptions = { pricePerNight: 1 };
+        break;
+      case "pricePerNightDesc":
+        sortOptions = { pricePerNight: -1 };
+        break;
+    }
+
     const pageSize = 5;
     const pageNumber = parseInt(
       req.query.page ? req.query.page.toString() : "1"
     );
     const skip = (pageNumber - 1) * pageSize;
-    const hotels = await Hotel.find().skip(skip).limit(pageSize);
 
-    const total = await Hotel.countDocuments();
+    const hotels = await Hotel.find(query)
+      .sort(sortOptions)
+      .skip(skip)
+      .limit(pageSize);
+
+    const total = await Hotel.countDocuments(query);
 
     const response: HotelSearchResponse = {
       data: hotels,
