@@ -49,5 +49,5 @@ export type BookingType = {
 export type paymentIntentResponse = {
   paymentIntentId: string;
   clientSecret: string;
-  totalCost: string;
+  totalCost: number;
 };
